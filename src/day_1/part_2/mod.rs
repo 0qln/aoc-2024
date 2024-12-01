@@ -1,6 +1,5 @@
 use std::collections::HashMap;
-
-use super::part_1::parse;
+use super::parse;
 
 #[cfg(test)]
 mod test;
