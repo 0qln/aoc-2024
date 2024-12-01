@@ -11,7 +11,6 @@ pub fn parse(input: &str) -> impl Iterator<Item = (i64, i64)> + '_ {
     })
 }
 
-#[no_mangle]
 pub fn solve(input: &str) -> u64 {
     let input = parse(input);
     let (mut lefts, mut rights): (Vec<i64>, Vec<i64>) = input.unzip();
