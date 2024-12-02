@@ -1,8 +1,10 @@
 #![allow(dead_code)]
 #![allow(unused_macros)]
 #![allow(unused_imports)]
+#![feature(iterator_try_reduce)]
 
 mod day_1;
+mod day_2;
 
 macro_rules! include_using_path {
     ($relative_path:expr) => {{
