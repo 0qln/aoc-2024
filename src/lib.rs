@@ -2,12 +2,14 @@
 #![allow(unused_macros)]
 #![allow(unused_imports)]
 #![feature(iterator_try_reduce)]
+#![feature(hash_set_entry)]
 
 mod day_1;
 mod day_2;
 mod day_3;
 mod day_4;
 mod day_5;
+mod day_6;
 
 macro_rules! include_using_path {
     ($relative_path:expr) => {{
