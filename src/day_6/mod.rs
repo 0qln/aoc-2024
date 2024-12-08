@@ -5,8 +5,8 @@ use itertools::Itertools;
 pub mod part_1;
 pub mod part_2;
 
-type Pos = (usize, usize);
-type Dir = (isize, isize);
+pub type Pos = (usize, usize);
+pub type Dir = (isize, isize);
 
 #[derive(Clone)]
 struct Guard {
@@ -37,13 +37,15 @@ impl Guard {
     }
 }
 
-#[derive(Clone)]
-struct Map {
+#[derive(Clone, Default)]
+pub struct Map {
     v: Vec<Vec<char>>,
 }
 
 impl Map {
-    fn find(&self, pred: impl Fn(&char) -> bool) -> Option<Pos> {
+    pub fn v(self) -> Vec<Vec<char>> { self.v }
+
+    pub fn find(&self, pred: impl Fn(&char) -> bool) -> Option<Pos> {
         self.v.iter().enumerate().find_map(|(top, line)| {
             line.iter()
                 .enumerate()
@@ -54,20 +56,48 @@ impl Map {
         })
     }
 
-    fn count(&self, pred: impl Fn(&char) -> bool) -> usize {
+    pub fn find_all<'a, F: Fn(&char) -> bool + Copy>(&'a self, pred: F) -> impl Iterator<Item = Pos> + use<'a, F> {
+        self.v.iter().enumerate().flat_map(move |(top, line)| {
+            line.iter()
+                .enumerate()
+                .filter_map(move |(left, &ch)| if pred(&ch) { Some((left, top)) } else { None })
+        })
+    }
+
+    pub fn fold<T>(&self, init: T, mut f: impl FnMut(T, &char) -> T) -> T {
+        self.v.iter().fold(init, |acc, line| {
+            line.iter().fold(acc, |acc, &ch| {
+                f(acc, &ch)
+            })
+        })
+    }
+    
+    pub fn map<'a, T, F: Fn(&char) -> T + Copy>(&'a self, f: F) -> impl Iterator<Item = T> + use<'a, F, T> {
+        self.v.iter().flat_map(move |line| line.iter().map(f))
+    }
+
+    pub fn count(&self, pred: impl Fn(&char) -> bool) -> usize {
         self.v.iter().flatten().filter(|x| pred(x)).count()
     }
 
-    fn get(&self, (left, top): Pos) -> Option<char> {
+    pub fn get(&self, (left, top): Pos) -> Option<char> {
         self.v.get(top)?.get(left).copied()
     }
 
-    fn set(&mut self, (left, top): Pos, c: char) {
+    pub fn set(&mut self, (left, top): Pos, c: char) {
         self.v[top][left] = c;
+    }
+    
+    pub fn set_checked(&mut self, (left, top): Pos, c: char) -> Option<()> { 
+        self.v.get_mut(top)?.get_mut(left).map(|v| *v = c)
+    }
+    
+    pub fn clone_empty(&self) -> Map {
+        Map { v: vec![vec!['.'; self.v[0].len()]; self.v.len()] }
     }
 }
 
-fn parse(input: &str) -> Map {
+pub fn parse(input: &str) -> Map {
     Map {
         v: input
             .lines()
