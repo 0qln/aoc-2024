@@ -24,14 +24,12 @@ pub fn solve(input: &str) -> usize {
                 ].iter() {
                     let mut dist = 0;
                     while {
-                        let d = mul(*d, dist);
-                        dist += 1;
-                        let anti_node = setoff(antenna, d);
+                        let anti_node = setoff(antenna, mul(*d, dist));
                         anti_nodes.set_checked(anti_node, '#').is_some()
-                    } {}
+                    } { dist += 1; }
                 }
             }
         }
     }
-    anti_nodes.count(|&ch| matches!(ch, '#'))
+    anti_nodes.count(|&ch| ch == '#')
 }
