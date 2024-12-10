@@ -8,6 +8,11 @@ pub mod part_2;
 pub type Pos = (usize, usize);
 pub type Dir = (isize, isize);
 
+pub fn get_dir(dir: isize) -> Dir {
+    let x = dir as f64 * f64::consts::PI / 2f64;
+    (f64::cos(x).round() as isize, f64::sin(x).round() as isize)
+}
+
 #[derive(Clone)]
 struct Guard {
     pos: Pos,
@@ -20,8 +25,7 @@ impl Guard {
     }
 
     fn get_dir(&self) -> Dir {
-        let x = self.dir as f64 * f64::consts::PI / 2f64;
-        (f64::cos(x).round() as isize, f64::sin(x).round() as isize)
+        get_dir(self.dir)
     }
 
     fn forward(&self) -> Option<Pos> {

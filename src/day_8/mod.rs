@@ -9,17 +9,17 @@ use crate::day_6::{self, Dir, Map, Pos};
 pub mod part_1;
 pub mod part_2;
 
-fn delta(a: Pos, b: Pos) -> Dir {
+pub fn delta(a: Pos, b: Pos) -> Dir {
     (a.0 as isize - b.0 as isize, a.1 as isize - b.1 as isize)
 }
 
-fn setoff(pos: Pos, dir: Dir) -> Pos {
+pub fn setoff(pos: Pos, dir: Dir) -> Pos {
     let left = pos.0 as isize + dir.0;
     let right = pos.1 as isize + dir.1;
     (left as usize, right as usize)
 }
 
-fn mul(a: Dir, b: isize) -> Dir {
+pub fn mul(a: Dir, b: isize) -> Dir {
     (a.0 * b, a.1 * b)
 }
 
