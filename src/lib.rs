@@ -3,6 +3,7 @@
 #![allow(unused_imports)]
 #![feature(iterator_try_reduce)]
 #![feature(hash_set_entry)]
+#![feature(linked_list_cursors)]
 
 mod day_1;
 mod day_2;
@@ -14,6 +15,7 @@ mod day_7;
 mod day_8;
 mod day_9;
 mod day_10;
+mod day_11;
 
 macro_rules! include_using_path {
     ($relative_path:expr) => {{
