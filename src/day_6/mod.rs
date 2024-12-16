@@ -47,6 +47,10 @@ pub struct Map {
 }
 
 impl Map {
+    pub fn new(v: Vec<Vec<char>>) -> Map {
+        Map { v }
+    }
+
     pub fn v(self) -> Vec<Vec<char>> {
         self.v
     }
@@ -114,6 +118,17 @@ impl Map {
         Map {
             v: vec![vec!['.'; self.v[0].len()]; self.v.len()],
         }
+    }
+}
+
+impl ToString for Map {
+    fn to_string(&self) -> String {
+        let mut result = String::new();
+        for line in &self.v {
+            result.push_str(&line.iter().flat_map(|c| [*c, ' ']).collect::<String>());
+            result.push('\n');
+        }
+        result
     }
 }
 
