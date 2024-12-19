@@ -119,6 +119,17 @@ impl Map {
             v: vec![vec!['.'; self.v[0].len()]; self.v.len()],
         }
     }
+    
+    pub fn map_chars_h(&mut self, f: impl Fn(char) -> Vec<char>) {
+        for line in &mut self.v {
+            let mut new_line = Vec::new();
+            for ch in line.iter() {
+                let mut new_chars = f(*ch);
+                new_line.append(&mut new_chars);
+            }
+            *line = new_line;
+        }        
+    }
 }
 
 impl ToString for Map {
