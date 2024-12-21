@@ -7,6 +7,7 @@ edition = "2021"
 anyhow = "1.0.94"
 ilog = "1.0.1"
 itertools = "0.13.0"
+pathfinding = "4.12.0"
 regex = "1.11.1"
 rustc-hash = "2.1.0"
 

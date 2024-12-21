@@ -20,6 +20,7 @@ mod day_13;
 mod day_14;
 mod day_15;
 mod day_17;
+mod day_18;
 
 macro_rules! include_using_path {
     ($relative_path:expr) => {{
